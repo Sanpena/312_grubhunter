@@ -1,6 +1,7 @@
 import { ApolloServer, BaseContext } from "@apollo/server";
 import { startServerAndCreateNextHandler } from "@as-integrations/next";
 import { NextApiRequest, NextApiResponse } from "next";
+import { getToken } from "next-auth/jwt";
 import { typeDefs } from "../../graphql/schema";
 import { resolvers } from "../../graphql/resolvers";
 import dbConnect from "../../middleware/mongodb";
@@ -11,9 +12,9 @@ const server = new ApolloServer<BaseContext>({
 });
 
 const handler = startServerAndCreateNextHandler(server, {
-    context: async () => {
+    context: async (req) => {
         await dbConnect();
-        const token = {};
+        const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
         return { token };
     },
 });

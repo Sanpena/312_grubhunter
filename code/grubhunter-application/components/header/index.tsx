@@ -1,4 +1,5 @@
 import { Logo } from "./logo";
+import { AuthElement } from "./auth-element";
 import styles from "./index.module.css";
 
 export const Header = () => {
@@ -6,6 +7,7 @@ export const Header = () => {
         <header className={styles.root}>
             <div className="layout-grid">
                 <Logo />
+                <AuthElement />
             </div>
         </header>
     );
